@@ -3,8 +3,6 @@ from PIL import Image
 from pylab import *
 from numpy import *
 
-#import numpy as np
-#import matplotlib.pyplot as plt
 
 def compute_harris_response(im,sigma=3):
     #在一幅灰度图像中，对每个像素计算Harris 角点检测器响应函数
@@ -55,3 +53,12 @@ def plot_harris_points(image,filtered_coords):
     plot([p[1] for p in filtered_coords],[p[0] for p in filtered_coords],'*')
     axis('off')
     show()
+    
+    
+    
+if __name__ == "__main__":
+    im = array(Image.open('Sansiro.jpg').convert('L'))
+    harrisim = compute_harris_response(im)
+    for i in [0.01,0.05,0.1]:
+        filtered_coords = get_harris_points(harrisim,6,i)
+        plot_harris_points(im,filtered_coords)
